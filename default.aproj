@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<project ver="10" name="love2d打包器" libEmbed="true" icon="..." ui="win" output="love2d打包器.exe" CompanyName="单位名称" FileDescription="love2d打包器" LegalCopyright="Copyright (C) 作者 2021" ProductName="love2d打包器" InternalName="love2d打包器" FileVersion="0.0.0.04" ProductVersion="0.0.0.04" publishDir="/dist/" dstrip="false" local="false" ignored="false">
+<project ver="10" name="love2d打包器" libEmbed="true" icon="..." ui="win" output="love2d打包器.exe" CompanyName="单位名称" FileDescription="love2d打包器" LegalCopyright="Copyright (C) 作者 2021" ProductName="love2d打包器" InternalName="love2d打包器" FileVersion="0.0.0.05" ProductVersion="0.0.0.05" publishDir="/dist/" dstrip="false" local="false" ignored="false">
 	<file name="main.aardio" path="main.aardio" comment="main.aardio"/>
 	<folder name="资源文件" path="res" embed="true" local="false" ignored="false">
 		<file name="krkrsdl2.js" path="res\krkrsdl2.js" comment="res\krkrsdl2.js"/>
