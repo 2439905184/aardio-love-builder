@@ -66,6 +66,12 @@ load_pack_inis=function(){
 			} 
 		  ); 
 }
+else {
+	console.log("没有保存的打包配置文件")
+	console.log("创建工程目录")
+	fsys.createDir("/projects")
+}
+
 }
 load_pack_inis()
 
@@ -137,12 +143,12 @@ mainForm.button13.oncommand = function(id,event){
 mainForm.button14.oncommand = function(id,event){
 	process(,"explorer "+mainForm.edit_love64.text)
 }
-
+//保存配置文件
 mainForm.button5.oncommand = function(id,event){
 	inputbox = win.inputBox(mainForm)
 	inputbox.text = "输入框标题"
 	inputbox.info.text = "请在下面输入此配置文件名称(不带后缀)"
-	inputbox.input.text = "在这里输入配置文件名称"
+	inputbox.input.text = ""
 	name=inputbox.doModal()
 	if(name){
 		win.msgbox("保存好了")
@@ -195,9 +201,12 @@ mainForm.open_pak_ini.oncommand = function(id,event){
 	mainForm.edit_build_love_path.text=build_love_path
 	mainForm.edit_exe_path.text=exe_path
 }
+//选中了item
 mainForm.list_projects.oncommand = function(id,event){
-	var sel_name=mainForm.list_projects.selText
-	mainForm.sel_ini.text="选中了:"+sel_name
+    if( event == 0x1/*_LBN_SELCHANGE*/ ){
+		//var sel_name=mainForm.list_projects.selText
+		//mainForm.sel_ini.text="选中了:"+sel_name
+	}
 }
 
 mainForm.show();
