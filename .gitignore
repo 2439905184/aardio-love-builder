@@ -2,4 +2,4 @@
 .build/
 test.zip
 dist/dist.zip
-dist/test.love
+dist/Game/test.love
