@@ -23,7 +23,7 @@ button15={cls="button";text="打开路径";left=401;top=126;right=462;bottom=154
 button16={cls="button";text="打开路径";left=400;top=159;right=461;bottom=187;z=21};
 button3={cls="button";text="打包64位exe";left=561;top=58;right=701;bottom=100;z=3};
 button4={cls="button";text="关于";left=487;top=219;right=618;bottom=257;z=5};
-button5={cls="button";text="保存打包配置";left=24;top=107;right=127;bottom=143;z=6};
+button5={cls="button";text="保存打包配置";left=222;top=472;right=325;bottom=508;z=6};
 button6={cls="button";text="打包love";left=564;top=107;right=704;bottom=149;z=8};
 button8={cls="button";text="选择路径";left=481;top=24;right=542;bottom=52;z=10};
 button9={cls="button";text="选择路径";left=478;top=60;right=539;bottom=84;z=11};
@@ -86,9 +86,11 @@ mainForm.button3.oncommand = function(id,event){
 //打包love 
 mainForm.button6.oncommand = function(id,event){
     if(in_aardio)
-	  {
-	  	//调用7z添加压缩包 忽略根目录 .\目录*
-	  	var a=execute("cd 7z & 7za a test.zip G:\test\*")
+	  {//7z a archive2.zip .\subdir\*
+	  	//调用7z添加压缩包 忽略根目录 .\目录* G:\aaa\* proj 
+	  	var ccmad="cd 7z &7za a test.zip "+mainForm.editProjPath.text+"\*"
+	  	win.msgbox("命令>"+ccmad)
+	  	var a=execute(ccmad)
 	  	var path=fsys.getCurDir()+"\7z\"
 	  	fsys.rename(path+"test.zip",path+"test.love")
 	  	//剪切
@@ -98,6 +100,10 @@ mainForm.button6.oncommand = function(id,event){
 	  	if(a==0)
 	  	{
 	  		win.msgbox("打包完成")
+	  	}
+	  	else
+	  	{
+	  		win.msgbox("打包失败")
 	  	}
 	  }
 }
@@ -192,7 +198,7 @@ mainForm.sync_local_pack_projects.oncommand = function(id,event){
 }
 //打开ini配置文件
 mainForm.open_pak_ini.oncommand = function(id,event){
-	var ini=fsys.ini(mainForm.list_projects.selText+".ini")
+	var ini=fsys.ini("/projects/"+mainForm.list_projects.selText+".ini")
 	project_path=ini.read("path","project_path")
 	build_love_path= ini.read("path","love_build_path")
 	exe_path=ini.read("path","exe_build_path")
@@ -204,8 +210,8 @@ mainForm.open_pak_ini.oncommand = function(id,event){
 //选中了item
 mainForm.list_projects.oncommand = function(id,event){
     if( event == 0x1/*_LBN_SELCHANGE*/ ){
-		//var sel_name=mainForm.list_projects.selText
-		//mainForm.sel_ini.text="选中了:"+sel_name
+		var sel_name=mainForm.list_projects.selText
+		mainForm.sel_ini.text="选中了:"+sel_name
 	}
 }
 
