@@ -2,13 +2,18 @@ import win.ui;
 import zlib;
 import console;
 import fsys.dlg;
+import fsys.dlg.dir;
+io.open()
+import zlib.zip;
+
+var in_aardio=true
 /*DSG{{*/
 mainForm = win.form(text="love2d打包器";right=959;bottom=591)
 mainForm.add(
 button={cls="button";text="打包32位exe";left=483;top=9;right=623;bottom=51;z=2};
 button10={cls="button";text="选择路径";left=392;top=93;right=453;bottom=121;z=13};
-button11={cls="button";text="选择路径";left=394;top=122;right=455;bottom=150;z=15};
-button12={cls="button";text="选择路径";left=397;top=157;right=458;bottom=185;z=17};
+button11={cls="button";text="选择路径";left=392;top=122;right=453;bottom=150;z=15};
+button12={cls="button";text="选择路径";left=394;top=150;right=455;bottom=178;z=17};
 button2={cls="button";text="创建打包工程";left=23;top=23;right=126;bottom=59;z=6};
 button3={cls="button";text="打包64位exe";left=483;top=59;right=623;bottom=101;z=3};
 button4={cls="button";text="关于";left=487;top=219;right=618;bottom=257;z=5};
@@ -17,14 +22,16 @@ button6={cls="button";text="打包love";left=483;top=113;right=623;bottom=155;z=
 button7={cls="button";text="打开打包工程";left=23;top=61;right=126;bottom=97;z=10};
 button8={cls="button";text="选择路径";left=388;top=31;right=449;bottom=59;z=11};
 button9={cls="button";text="选择路径";left=390;top=64;right=451;bottom=88;z=12};
-edit={cls="edit";text="打包love文件路径";left=179;top=125;right=387;bottom=149;edge=1;multiline=1;z=14};
 edit2={cls="edit";text="请输入love.exe路径(64位)";left=184;top=62;right=362;bottom=83;edge=1;multiline=1;z=4};
 edit3={cls="edit";text="打包exe文件路径";left=180;top=158;right=388;bottom=182;edge=1;multiline=1;z=16};
 editProjPath={cls="edit";text="请输入工程目录(main.lua)所在目录";left=182;top=91;right=390;bottom=115;edge=1;multiline=1;z=8};
-edit_love32={cls="edit";text="请输入love.exe路径(32位)";left=185;top=32;right=363;bottom=53;edge=1;multiline=1;z=1}
+edit_build_love_path={cls="edit";text="打包love文件路径";left=179;top=125;right=387;bottom=149;edge=1;multiline=1;z=14};
+edit_love32={cls="edit";text="请输入love.exe路径(32位)";left=185;top=32;right=363;bottom=53;edge=1;multiline=1;z=1};
+treeview={cls="treeview";left=50;top=304;right=239;bottom=462;asel=false;bgcolor=16777215;edge=1;z=18}
 )
 /*}}*/
 
+var project_path
 mainForm.button4.oncommand = function(id,event){
 	win.msgbox("作者128hh qq:2439905184,编程语言aardio")
 }
@@ -40,18 +47,18 @@ mainForm.button7.oncommand = function(id,event){
 	}
 	
 }
-
+//打包love 
 mainForm.button6.oncommand = function(id,event){
-   	var path=fsys.getCurDir()
- 
-   	//fsys.file("main.aardio")
-	/*var project_dir =mainForm.editProjPath.text ;
-	//var z=zlib.zip(project_dir)
-	var zip = zlib.zip("C:/Users/11111/Desktop/工作台/test\test.zip"  );
-	zip.compress("C:/Users/11111/Desktop/工作台")
-	zip.close();*/
-	//console.log("aaa")
-	//console.varDump(project_dir)
+   var zip=zlib.zip("G:\zip\test.zip","G:\",true)
+   zip.beginWrite("G:\test\main.lua")
+   zip.endWrite()
+      //这里是要加入到zip文件中的文件路径
+  /* zip.compress( "G:\test",
+   	function(len,path){
+   		..io.print( len,path )
+   	}
+   )*/
+   zip.close()
 }
 //love32
 mainForm.button8.oncommand = function(id,event){
@@ -67,7 +74,18 @@ mainForm.button9.oncommand = function(id,event){
 }
 //project path
 mainForm.button10.oncommand = function(id,event){
-	
+	project_path = fsys.dlg.dir(,mainForm,'请选择目录')
+	if(project_path){
+		mainForm.editProjPath.text=project_path
+		//console.varDump(project_path)
+	}
+}
+//build love path
+mainForm.button11.oncommand = function(id,event){
+	var path = fsys.dlg.dir(,mainForm,'请选择目录')
+	if(path){
+		mainForm.edit_build_love_path.text=path
+	}
 }
 
 mainForm.show();
