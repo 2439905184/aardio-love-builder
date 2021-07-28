@@ -104,7 +104,7 @@ mainForm.button6.oncommand = function(id,event){
 	  		fsys.copy(path_tmp_love,"Game/test.love")
 	  	}  	
 	  	fsys.delete(path_tmp_love)
-	  	win.msgbox("预处理目录>"+path)
+	  	win.msgbox("预处理目录>"+path_tmp_zip)
 	  	if(a==0)
 	  	{
 	  		win.msgbox("打包完成")
