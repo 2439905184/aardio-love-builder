@@ -94,7 +94,8 @@ mainForm.button6.oncommand = function(id,event){
 	  	var path=fsys.getCurDir()+"\7z\"
 	  	fsys.rename(path+"test.zip",path+"test.love")
 	  	//剪切
-	  	fsys.copy(path+"test.love","/Game/test.love")
+	  	var love=fsys.getCurDir()+"\Game\test.love"
+	  	fsys.copy(path+"test.love",love)
 	  	fsys.delete(path+"test.love")
 	  	win.msgbox("预处理目录>"+path)
 	  	if(a==0)
