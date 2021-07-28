@@ -1,8 +1,10 @@
 import win.ui;
+import win.inputBox;
 import zlib;
 import console;
 import fsys.dlg;
 import fsys.dlg.dir;
+import fsys.ini;
 io.open()
 import zlib.zip;
 import process.popen;
@@ -21,16 +23,16 @@ button16={cls="button";text="打开路径";left=400;top=159;right=461;bottom=187
 button2={cls="button";text="创建打包工程";left=23;top=23;right=126;bottom=59;z=6};
 button3={cls="button";text="打包64位exe";left=561;top=58;right=701;bottom=100;z=3};
 button4={cls="button";text="关于";left=487;top=219;right=618;bottom=257;z=5};
-button5={cls="button";text="保存打包工程";left=24;top=107;right=127;bottom=143;z=7};
+button5={cls="button";text="保存打包配置";left=24;top=107;right=127;bottom=143;z=7};
 button6={cls="button";text="打包love";left=564;top=107;right=704;bottom=149;z=9};
-button7={cls="button";text="打开打包工程";left=23;top=61;right=126;bottom=97;z=10};
+button7={cls="button";text="打开配置";left=23;top=61;right=126;bottom=97;z=10};
 button8={cls="button";text="选择路径";left=481;top=24;right=542;bottom=52;z=11};
 button9={cls="button";text="选择路径";left=478;top=60;right=539;bottom=84;z=12};
-edit2={cls="edit";text="请输入love.exe路径(64位)";left=184;top=62;right=362;bottom=83;edge=1;multiline=1;z=4};
-edit3={cls="edit";text="打包exe文件路径";left=180;top=158;right=388;bottom=182;edge=1;multiline=1;z=16};
+edit3={cls="edit";text="打包exe文件路径";left=180;top=158;right=384;bottom=182;edge=1;multiline=1;z=16};
 editProjPath={cls="edit";text="请输入工程目录(main.lua)所在目录";left=182;top=91;right=390;bottom=115;edge=1;multiline=1;z=8};
 edit_build_love_path={cls="edit";text="love文件导出路径";left=179;top=125;right=387;bottom=149;edge=1;multiline=1;z=14};
 edit_love32={cls="edit";text="请输入love.exe路径(32位)";left=185;top=32;right=363;bottom=53;edge=1;multiline=1;z=1};
+edit_love64={cls="edit";text="请输入love.exe路径(64位)";left=184;top=62;right=362;bottom=83;edge=1;multiline=1;z=4};
 treeview={cls="treeview";left=50;top=304;right=239;bottom=462;asel=false;bgcolor=16777215;edge=1;z=18}
 )
 /*}}*/
@@ -81,7 +83,10 @@ mainForm.button8.oncommand = function(id,event){
 }
 //love64
 mainForm.button9.oncommand = function(id,event){
-    
+    var path = fsys.dlg.dir(,mainForm,'请选择目录')
+	if(path){
+		mainForm.edit_love64.text=path
+	}
 }
 //project path
 mainForm.button10.oncommand = function(id,event){
@@ -105,7 +110,35 @@ mainForm.button13.oncommand = function(id,event){
 	var a=execute(cmd)
 	win.msgbox(a)*/
 	process(,"explorer "+mainForm.edit_love32.text)
-	//fsys.dlg.opendir(mainForm.edit_love32.text)
+}
+//love64 路径打开
+mainForm.button14.oncommand = function(id,event){
+	process(,"explorer "+mainForm.edit_love64.text)
+}
+
+mainForm.button5.oncommand = function(id,event){
+	inputbox = win.inputBox(mainForm)
+	inputbox.text = "输入框标题"
+	inputbox.info.text = "请在下面输入此配置文件名称"
+	inputbox.input.text = "在这里输入配置文件名称"
+	name=inputbox.doModal()
+	if(name){
+		win.msgbox("保存好了")
+		var is_exist=io.exist("config.ini")
+		if(is_exist){
+			win.msgbox("存在配置文件")
+		}
+		else {
+		 	win.msgbox("配置文件不存在，创建文件")
+			f=io.open("/config.ini","w+")
+			var ini=fsys.ini("config.ini")
+			ini.write("love2d.exe","32",mainForm.edit_love32.text)
+			ini.write("love2d.exe","64",mainForm.edit_love64.text)
+		}
+		}
+	else{
+    	win.msgbox("拒绝保存")
+}
 }
 
 mainForm.show();
