@@ -2,3 +2,4 @@
 .build/
 test.zip
 dist/dist.zip
+dist/test.love
