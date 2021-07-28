@@ -5,7 +5,7 @@ import fsys.dlg;
 import fsys.dlg.dir;
 io.open()
 import zlib.zip;
-
+import process.popen;
 var in_aardio=true
 /*DSG{{*/
 mainForm = win.form(text="love2d打包器";right=959;bottom=591)
@@ -33,32 +33,35 @@ treeview={cls="treeview";left=50;top=304;right=239;bottom=462;asel=false;bgcolor
 
 var project_path
 mainForm.button4.oncommand = function(id,event){
-	win.msgbox("作者128hh qq:2439905184,编程语言aardio")
+	win.msgbox("作者128hh qq:2439905184,编程语言aardio,使用的开源软件:7z,love2d")
 }
-
+//64 exe
 mainForm.button3.oncommand = function(id,event){
-	
-}
+	 // win.msgbox("aaa")
 
+}
+//
 mainForm.button7.oncommand = function(id,event){
     var path = fsys.dlg.open('所有文件|*.*|文本文件|*.txt||',,,mainForm);
 	if(path){
 		mainForm.edit_love32.text=path
 	}
-	
 }
 //打包love 
 mainForm.button6.oncommand = function(id,event){
-   var zip=zlib.zip("G:\zip\test.zip","G:\",true)
-   zip.beginWrite("G:\test\main.lua")
-   zip.endWrite()
-      //这里是要加入到zip文件中的文件路径
-  /* zip.compress( "G:\test",
-   	function(len,path){
-   		..io.print( len,path )
-   	}
-   )*/
-   zip.close()
+    if(in_aardio)
+	  {
+	  	//调用7z添加压缩包 忽略根目录 .\目录*
+	  	var a=execute("cd 7z & 7za a test.zip G:\test\*")
+	  	var path=fsys.getCurDir()+"\7z\"
+	  	fsys.rename(path+"test.zip",path+"test.love")
+	  	win.msgbox(path)
+	  	if(a==0)
+	  	{
+	  		win.msgbox("打包完成")
+	  	}
+	  }
+
 }
 //love32
 mainForm.button8.oncommand = function(id,event){
@@ -70,7 +73,7 @@ mainForm.button8.oncommand = function(id,event){
 }
 //love64
 mainForm.button9.oncommand = function(id,event){
-	
+    
 }
 //project path
 mainForm.button10.oncommand = function(id,event){
