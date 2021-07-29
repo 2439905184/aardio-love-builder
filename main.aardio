@@ -32,16 +32,17 @@ var rena_name="rena酱:"
 //导出exe需要设置为false
 var test_play=true
 //检测配置文件 love2d引擎位置 运行向导
+var bgm=bass.channel.open("/res/bgm.mp3")
+if(test_play){
+	bgm.play()
+}
 if(io.exist("config.ini")){
 	var ini=fsys.ini("config.ini")
 	var love32=ini.read("love2d.exe","32")
 	var love64=ini.read("love2d.exe","64")
 }
 else {
-    var bgm=bass.channel.open("/res/bgm.mp3")
-    if(test_play){
-        bgm.play()	
-    }
+    bgm.play()	
     mainForm.progress.stepIt()
 }
 set_path=function(){
