@@ -10,8 +10,8 @@ import zlib.zip;
 import process.popen;
 var in_aardio=true
 /*DSG{{*/
-mainForm = win.form(text="love2d打包器";right=959;bottom=591)
-mainForm.add(
+initForm = win.form(text="love2d打包器";right=959;bottom=591)
+initForm.add(
 button={cls="button";text="打包32位exe";left=562;top=11;right=702;bottom=53;z=2};
 button10={cls="button";text="选择路径";left=398;top=87;right=459;bottom=115;z=12};
 button11={cls="button";text="选择路径";left=484;top=124;right=545;bottom=152;z=14};
@@ -221,6 +221,6 @@ mainForm.button16.oncommand = function(id,event){
 	
 }
 */
-mainForm.show();
+initForm.show();
 win.loopMessage();
 
