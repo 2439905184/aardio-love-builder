@@ -12,40 +12,27 @@ var in_aardio=true
 /*DSG{{*/
 initForm = win.form(text="love2d打包器";right=959;bottom=591)
 initForm.add(
-button={cls="button";text="打包32位exe";left=562;top=11;right=702;bottom=53;z=2};
-button10={cls="button";text="选择路径";left=398;top=87;right=459;bottom=115;z=12};
-button11={cls="button";text="选择路径";left=484;top=124;right=545;bottom=152;z=14};
-button12={cls="button";text="选择路径";left=483;top=160;right=544;bottom=188;z=16};
-button13={cls="button";text="打开路径";left=387;top=24;right=448;bottom=52;z=18};
-button14={cls="button";text="打开路径";left=390;top=57;right=451;bottom=85;z=19};
-button15={cls="button";text="打开路径";left=401;top=126;right=462;bottom=154;z=20};
-button16={cls="button";text="打开路径";left=400;top=159;right=461;bottom=187;z=21};
-button3={cls="button";text="打包64位exe";left=561;top=58;right=701;bottom=100;z=3};
-button4={cls="button";text="关于";left=487;top=219;right=618;bottom=257;z=5};
-button5={cls="button";text="保存打包配置";left=222;top=472;right=325;bottom=508;z=6};
-button6={cls="button";text="打包love";left=564;top=107;right=704;bottom=149;z=8};
-button8={cls="button";text="选择路径";left=481;top=24;right=542;bottom=52;z=10};
-button9={cls="button";text="选择路径";left=478;top=60;right=539;bottom=84;z=11};
-editProjPath={cls="edit";text="请输入工程目录(main.lua)所在目录";left=182;top=91;right=390;bottom=115;edge=1;multiline=1;z=7};
-edit_build_love_path={cls="edit";text="love文件导出路径";left=557;top=537;right=765;bottom=561;edge=1;hide=1;multiline=1;z=13};
-edit_exe_path={cls="edit";text="打包exe文件路径";left=564;top=162;right=768;bottom=186;edge=1;hide=1;multiline=1;z=15};
-edit_love32={cls="edit";text="请输入love.exe路径(32位)";left=185;top=32;right=363;bottom=53;edge=1;multiline=1;z=1};
-edit_love64={cls="edit";text="请输入love.exe路径(64位)";left=184;top=62;right=362;bottom=83;edge=1;multiline=1;z=4};
-list_projects={cls="listbox";left=36;top=209;right=224;bottom=456;edge=1;items={};vscroll=1;z=22};
-open_pak_ini={cls="button";text="打开打包配置";left=227;top=413;right=330;bottom=449;z=9};
-sel_ini={cls="static";text="选中了:";left=231;top=377;right=326;bottom=405;transparent=1;z=24};
-static={cls="static";text="love文件的导出路径在软件Game目录";left=167;top=133;right=401;bottom=158;transparent=1;z=25};
-static2={cls="static";text="exe文件的导出路径在软件Game目录";left=166;top=163;right=400;bottom=188;transparent=1;z=26};
-sync_local_pack_projects={cls="button";text="同步本地目录";left=40;top=462;right=186;bottom=511;z=23};
-treeview={cls="treeview";left=487;top=280;right=678;bottom=400;asel=false;bgcolor=16777215;edge=1;z=17}
+button={cls="button";text="打包32位exe";left=562;top=11;right=702;bottom=53;z=1};
+button10={cls="button";text="选择路径";left=391;top=14;right=452;bottom=42;z=8};
+button3={cls="button";text="打包64位exe";left=561;top=58;right=701;bottom=100;z=2};
+button4={cls="button";text="关于";left=487;top=219;right=618;bottom=257;z=3};
+button5={cls="button";text="保存打包配置";left=222;top=472;right=325;bottom=508;z=4};
+button6={cls="button";text="打包love";left=564;top=107;right=704;bottom=149;z=6};
+editProjPath={cls="edit";text="请输入工程目录(main.lua)所在目录";left=178;top=17;right=386;bottom=41;edge=1;multiline=1;z=5};
+edit_build_love_path={cls="edit";text="love文件导出路径";left=557;top=537;right=765;bottom=561;edge=1;hide=1;multiline=1;z=9};
+edit_exe_path={cls="edit";text="打包exe文件路径";left=564;top=162;right=768;bottom=186;edge=1;hide=1;multiline=1;z=10};
+list_projects={cls="listbox";left=36;top=209;right=224;bottom=456;edge=1;items={};vscroll=1;z=11};
+open_pak_ini={cls="button";text="打开打包配置";left=227;top=413;right=330;bottom=449;z=7};
+sel_ini={cls="static";text="选中了:";left=231;top=377;right=326;bottom=405;transparent=1;z=13};
+static={cls="static";text="love文件的导出路径在软件Game目录";left=173;top=59;right=407;bottom=84;transparent=1;z=14};
+static2={cls="static";text="exe文件的导出路径在软件Game目录";left=172;top=89;right=406;bottom=114;transparent=1;z=15};
+sync_local_pack_projects={cls="button";text="同步本地目录";left=40;top=462;right=186;bottom=511;z=12}
 )
 /*}}*/
 
 var project_path
 var build_love_path
 var love32_path
-/*
-
 //检测并载入打包配置文件
 load_pack_inis=function(){
 	if(io.exist("/projects"))
@@ -55,7 +42,7 @@ load_pack_inis=function(){
 				if(filename){ 
            			console.log("发现文件：",filename )
            			var name=string.split(filename,".")[1]
-           			mainForm.list_projects.add(name)
+           			initForm.list_projects.add(name)
 				}
 			} 
 		  ); 
@@ -67,22 +54,22 @@ else {
 }
 
 }
-load_pack_inis()
+//load_pack_inis()
 
-mainForm.button4.oncommand = function(id,event){
+initForm.button4.oncommand = function(id,event){
 	win.msgbox("作者128hh qq:2439905184,编程语言aardio,使用的开源软件:7z,love2d")
-}
+}/*
 //64 exe
-mainForm.button3.oncommand = function(id,event){
+initForm.button3.oncommand = function(id,event){
 	 // win.msgbox("aaa")
 
 }
 //打包love 
-mainForm.button6.oncommand = function(id,event){
+initForm.button6.oncommand = function(id,event){
     if(in_aardio)
 	  {//7z a archive2.zip .\subdir\*
 	  	//调用7z添加压缩包 忽略根目录 .\目录* G:\aaa\* proj 
-	  	var ccmad="cd 7z &7za a test.zip "+mainForm.editProjPath.text+"\*"
+	  	var ccmad="cd 7z &7za a test.zip "+initForm.editProjPath.text+"\*"
 	  	win.msgbox("命令>"+ccmad)
 	  	var a=execute(ccmad)
 	  	//创建zip 重命名 复制 删除
@@ -109,45 +96,24 @@ mainForm.button6.oncommand = function(id,event){
 	  	}
 	  }
 }
-//love32
-mainForm.button8.oncommand = function(id,event){
-   	love32_path = fsys.dlg.dir(,mainForm,'请选择目录')
-	if(love32_path){
-		mainForm.edit_love32.text=love32_path
-	}
-	//console.debug(path)
-}
-//love64
-mainForm.button9.oncommand = function(id,event){
-    var path = fsys.dlg.dir(,mainForm,'请选择目录')
-	if(path){
-		mainForm.edit_love64.text=path
-	}
-}
 //project path
-mainForm.button10.oncommand = function(id,event){
-	project_path = fsys.dlg.dir(,mainForm,'请选择目录')
+initForm.button10.oncommand = function(id,event){
+	project_path = fsys.dlg.dir(,initForm,'请选择目录')
 	if(project_path){
-		mainForm.editProjPath.text=project_path
+		initForm.editProjPath.text=project_path
 		//console.varDump(project_path)
 	}
 }
 //获取构建love文件路径
-mainForm.button11.oncommand = function(id,event){
-	build_love_path = fsys.dlg.dir(,mainForm,'请选择目录')
+initForm.button11.oncommand = function(id,event){
+	build_love_path = fsys.dlg.dir(,initForm,'请选择目录')
 	if(build_love_path){
-		mainForm.edit_build_love_path.text=build_love_path
+		initForm.edit_build_love_path.text=build_love_path
 	}
 }
-//love32 路径打开
-mainForm.button13.oncommand = function(id,event){
-	process(,"explorer "+mainForm.edit_love32.text)
-}
-//love64 路径打开
-mainForm.button14.oncommand = function(id,event){
-	process(,"explorer "+mainForm.edit_love64.text)
-}
-//保存配置文件
+
+//保存配置文件 重写
+/*
 mainForm.button5.oncommand = function(id,event){
 	inputbox = win.inputBox(mainForm)
 	inputbox.text = "输入框标题"
@@ -176,25 +142,20 @@ mainForm.button5.oncommand = function(id,event){
 	else{
     	win.msgbox("拒绝保存")
 }
-}
-mainForm.button12.oncommand = function(id,event){
-	var path = fsys.dlg.dir(,mainForm,'请选择目录')
-	if(path){
-		mainForm.edit_exe_path.text=path
-	}
-}
+}*/
 //重构用的代码
 set_path=function(control){
 	var path = fsys.dlg.dir(,mainForm,'请选择目录')
 	if(path){
 		control.text=path
 	}
-}
+}/*
 mainForm.sync_local_pack_projects.oncommand = function(id,event){
 	mainForm.list_projects.clear()
 	load_pack_inis()	
-}
+}*/
 //打开ini配置文件
+/*
 mainForm.open_pak_ini.oncommand = function(id,event){
 	var ini=fsys.ini("/projects/"+mainForm.list_projects.selText+".ini")
 	project_path=ini.read("path","project_path")
@@ -207,20 +168,20 @@ mainForm.open_pak_ini.oncommand = function(id,event){
 }
 //选中了item
 mainForm.list_projects.oncommand = function(id,event){
-    if( event == 0x1/*_LBN_SELCHANGE ){
+    if( event == 0x1 ){
 		var sel_name=mainForm.list_projects.selText
 		mainForm.sel_ini.text="选中了:"+sel_name
 	}
 }*/
-/*
-mainForm.button15.oncommand = function(id,event){
-	
-}
-
-mainForm.button16.oncommand = function(id,event){
-	
-}
-*/
 initForm.show();
 win.loopMessage();
-
+//废弃代码
+/*
+//love32 路径打开
+initForm.button13.oncommand = function(id,event){
+	process(,"explorer "+initForm.edit_love32.text)
+}
+//love64 路径打开
+initForm.button14.oncommand = function(id,event){
+	process(,"explorer "+initForm.edit_love64.text)
+}*/

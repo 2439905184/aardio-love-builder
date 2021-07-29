@@ -6,31 +6,90 @@ import fsys.dlg;
 import fsys.dlg.dir;
 import fsys.ini;
 io.open()
-import zlib.zip;
 import process.popen;
 import fsys.media;
 /*DSG{{*/
 mainForm = win.form(text="love2d打包器-设置向导";right=959;bottom=591)
-mainForm.add()
+mainForm.add(
+btn_love32={cls="button";text="选择";left=328;top=221;right=412;bottom=258;z=11};
+btn_love64={cls="button";text="选择";left=328;top=273;right=412;bottom=310;z=12};
+btn_next={cls="button";text="下一步";left=365;top=428;right=518;bottom=476;z=6};
+edit_love32={cls="edit";text="edit";left=89;top=230;right=302;bottom=253;edge=1;multiline=1;z=8};
+edit_love64={cls="edit";text="edit";left=87;top=282;right=292;bottom=304;edge=1;z=9};
+plus={cls="plus";left=570;top=110;right=811;bottom=515;foreground="\res\rena.png";notify=1;z=4};
+progress={cls="progress";left=56;top=371;right=371;bottom=401;edge=1;max=2;min=0;z=2};
+renaDialog={cls="static";text="rena酱:正在初始化";left=346;top=158;right=576;bottom=182;notify=1;transparent=1;z=3};
+static={cls="static";text="欢迎使用,love2d打包器";left=54;top=64;right=371;bottom=92;transparent=1;z=1};
+static2={cls="static";text="请输入love.exe路径(32位)";left=92;top=208;right=315;bottom=240;transparent=1;z=7};
+static3={cls="static";text="请按照提示完成向导操作";left=601;top=69;right=755;bottom=93;notify=1;transparent=1;z=5};
+static4={cls="static";text="请输入love.exe路径(64位)";left=87;top=255;right=310;bottom=287;transparent=1;z=10}
+)
 /*}}*/
 
-var project_path
-var build_love_path
 var love32_path
+var love64_path
+import bass.channel;
+var rena_name="rena酱:"
 //检测配置文件 love2d引擎位置 运行向导
 if(io.exist("config.ini")){
 	var ini=fsys.ini("config.ini")
 	var love32=ini.read("love2d.exe","32")
 	var love64=ini.read("love2d.exe","64")
-	mainForm.edit_love32.text=love32
-	mainForm.edit_love64.text=love64
-	
 }
 else {
-    fsys.media.playRepeat("/res/bgm.mp3",1)
- 	/*var frmChild = mainForm.loadForm("\dlg\init.aardio");
-	frmChild.show();*/
+    var bgm=bass.channel.open("/res/bgm.mp3")
+    bgm.play()
+    mainForm.progress.stepIt()
 }
-
+set_path=function(){
+	var path = fsys.dlg.dir(,mainForm,'请选择目录')
+	if(path){
+		return path
+	}
+}
+mainForm.plus.skin(
+	background = { 
+		hover = "/res/images/btn-hover.png";
+		focus = "/res/images/btn-focus.jpg";
+		active = "/res/images/btn-active.png";
+		disabled = "/res/images/btn-disabled.png"; 
+	}
+)
+//rena酱
+mainForm.plus.oncommand = function(id,event){
+    var msg="点我干嘛,要学编程吗"
+    mainForm.renaDialog.text="rena酱:"+msg
+	console.log(msg)
+}
+//下一步
+mainForm.btn_next.oncommand = function(id,event){
+    if(mainForm.btn_next.text=="完成设置")
+    {
+        //写配置文件
+        var ini=fsys.ini("config.ini")
+		var love32=ini.write("love2d.exe","32",mainForm.edit_love32.text)
+		var love64=ini.write("love2d.exe","64",mainForm.edit_love64.text)
+		win.msgbox("已生成config.ini,目录:/config.ini")
+    	var frmChild = mainForm.loadForm("\dlg\init.aardio");
+		frmChild.show();
+    }
+    else {
+    	win.msgbox("错误，你没有设置love.exe路径")
+    }
+}
+//love32
+mainForm.btn_love32.oncommand = function(id,event){
+	var path=set_path()
+	mainForm.edit_love32.text=path
+	mainForm.btn_next.text="完成设置"
+	mainForm.progress.stepIt()
+	mainForm.renaDialog.text=rena_name+"设置完成，请继续点击完成进入主界面"
+	console.log(path)
+}
+mainForm.btn_love64.oncommand = function(id,event){
+	var path=set_path()
+	mainForm.edit_love64.text=path
+	console.log(path)
+}
 mainForm.show();
 return win.loopMessage();
