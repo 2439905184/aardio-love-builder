@@ -6,7 +6,6 @@ import console;
 import fsys.dlg;
 import fsys.dlg.dir;
 import fsys.ini;
-io.open()
 import zlib.zip;
 import process.popen;
 var in_aardio=true
@@ -45,19 +44,7 @@ treeview={cls="treeview";left=487;top=280;right=678;bottom=400;asel=false;bgcolo
 var project_path
 var build_love_path
 var love32_path
-
-//检测配置文件 love2d引擎位置 运行向导
-if(io.exist("config.ini")){
-	var ini=fsys.ini("config.ini")
-	var love32=ini.read("love2d.exe","32")
-	var love64=ini.read("love2d.exe","64")
-	mainForm.edit_love32.text=love32
-	mainForm.edit_love64.text=love64
-}
-else {
- 	var frmChild = mainForm.loadForm("\dlg\init.aardio");
-	frmChild.show();
-}
+/*
 
 //检测并载入打包配置文件
 load_pack_inis=function(){
@@ -154,10 +141,6 @@ mainForm.button11.oncommand = function(id,event){
 }
 //love32 路径打开
 mainForm.button13.oncommand = function(id,event){
-   /* var cmd="explorer.exe "+love32_path
-	win.msgbox(cmd)
-	var a=execute(cmd)
-	win.msgbox(a)*/
 	process(,"explorer "+mainForm.edit_love32.text)
 }
 //love64 路径打开
@@ -224,12 +207,12 @@ mainForm.open_pak_ini.oncommand = function(id,event){
 }
 //选中了item
 mainForm.list_projects.oncommand = function(id,event){
-    if( event == 0x1/*_LBN_SELCHANGE*/ ){
+    if( event == 0x1/*_LBN_SELCHANGE ){
 		var sel_name=mainForm.list_projects.selText
 		mainForm.sel_ini.text="选中了:"+sel_name
 	}
-}
-
+}*/
+/*
 mainForm.button15.oncommand = function(id,event){
 	
 }
@@ -237,6 +220,7 @@ mainForm.button15.oncommand = function(id,event){
 mainForm.button16.oncommand = function(id,event){
 	
 }
-
+*/
 mainForm.show();
-return win.loopMessage();
+win.loopMessage();
+
