@@ -17,8 +17,7 @@
    	files={}
    	//加载游戏工程配置
    	load_project_pack_configs=function(in_aardio)
-   	{// files表
-   		
+   	{// files表	
    		if(in_aardio)
    		{
    		fsys.enum(  "/dist/projects", "*.*", 
@@ -32,6 +31,11 @@
 				})
    		}
 		return files   		
+   	}
+   	//清空
+   	clear_project_pack_configs=function()
+   	{
+   		table.clear(files)
    	}
    			
 }

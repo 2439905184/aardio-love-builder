@@ -29,9 +29,18 @@ sync_local_pack_projects={cls="button";text="同步本地目录";left=48;top=461
 /*}}*/
 
 var is_in_aardio=myUtil.is_in_aardio()
-//加载配置文件
-var table_inis= myUtil.load_project_pack_configs(is_in_aardio)
-//load_pack_inis()
+//加载配置文件 设置列表数据
+function set_list_data()
+{
+    var table_ini= myUtil.load_project_pack_configs(is_in_aardio)
+	console.dump(table_ini)
+	for(i=1;table.count(table_ini);1)
+	{
+    	console.debug(table_ini[i])
+    	initForm.list_projects.add(table_ini[i])
+	}
+}
+set_list_data()
 initForm.btn_about.oncommand = function(id,event){
 	win.msgbox("作者128hh qq:2439905184,编程语言aardio,使用的开源软件:7z,love2d  开源地址:https://gitee.com/h128/aardio-love-builder  欢迎关注我的github:https://github.com/2439905184")
 }
@@ -90,8 +99,9 @@ initForm.btn_save_pack_config.oncommand = function(id,event){
 }
 //同步本地目录
 initForm.sync_local_pack_projects.oncommand = function(id,event){
+    myUtil.clear_project_pack_configs()
 	initForm.list_projects.clear()
-	//myUtil.load_project_pack_configs(is_in_aardio)	
+	set_list_data()	
 }
 //加载打包配置文件
 initForm.open_pak_ini.oncommand = function(id,event){
