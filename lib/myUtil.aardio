@@ -1,24 +1,37 @@
 ﻿namespace myUtil{
 	import fsys;
 	import io;
-   	set_path= function(form){
+	import console;
+	import table;
+   	set_path= function(form)
+   	{
        var path=fsys.dlg.dir(,form,"请选择目录")
-       if(path){
-       		return path
-       }
-    	}
+       if(path){return path}
+    }
     //是否在开发环境
-   	is_in_aardio=function(){
+   	is_in_aardio=function()
+   	{
    		var state=io.exist("/dist")
    		return state
    	}
+   	files={}
    	//加载游戏工程配置
    	load_project_pack_configs=function(in_aardio)
-   	{
+   	{// files表
+   		
    		if(in_aardio)
    		{
-   		
+   		fsys.enum(  "/dist/projects", "*.*", 
+   				function(dir,filename,fullpath,findData)
+   				{
+				if(filename)
+				{ 
+           			console.log("发现文件:",filename )
+           			table.insert(myUtil.files,filename)
+           		}
+				})
    		}
+		return files   		
    	}
    			
 }

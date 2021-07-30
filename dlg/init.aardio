@@ -11,11 +11,11 @@ io.open()
 initForm = win.form(text="love2d打包器";right=959;bottom=591)
 initForm.add(
 btn_about={cls="button";text="关于";left=578;top=360;right=709;bottom=398;z=3};
+btn_build32={cls="button";text="打包32位exe";left=431;top=239;right=571;bottom=281;z=1};
+btn_build64={cls="button";text="打包64位exe";left=590;top=239;right=730;bottom=281;z=2};
 btn_pack_love={cls="button";text="打包love";left=576;top=140;right=716;bottom=182;z=6};
 btn_save_pack_config={cls="button";text="保存打包配置";left=149;top=457;right=229;bottom=492;z=4};
 btn_select_project_path={cls="button";text="选择路径";left=492;top=145;right=553;bottom=173;z=8};
-button={cls="button";text="打包32位exe";left=431;top=239;right=571;bottom=281;z=1};
-button3={cls="button";text="打包64位exe";left=595;top=237;right=735;bottom=279;z=2};
 editProjPath={cls="edit";text="请输入工程目录(main.lua)所在目录";left=278;top=150;right=486;bottom=174;edge=1;multiline=1;z=5};
 list_projects={cls="listbox";left=36;top=209;right=224;bottom=456;edge=1;items={};vscroll=1;z=9};
 open_pak_ini={cls="button";text="加载打包配置";left=226;top=424;right=319;bottom=463;z=7};
@@ -28,9 +28,9 @@ sync_local_pack_projects={cls="button";text="同步本地目录";left=48;top=461
 )
 /*}}*/
 
-var build_love_path
-var love32_path
 var is_in_aardio=myUtil.is_in_aardio()
+//加载配置文件
+var table_inis= myUtil.load_project_pack_configs(is_in_aardio)
 //load_pack_inis()
 initForm.btn_about.oncommand = function(id,event){
 	win.msgbox("作者128hh qq:2439905184,编程语言aardio,使用的开源软件:7z,love2d  开源地址:https://gitee.com/h128/aardio-love-builder  欢迎关注我的github:https://github.com/2439905184")
@@ -91,7 +91,7 @@ initForm.btn_save_pack_config.oncommand = function(id,event){
 //同步本地目录
 initForm.sync_local_pack_projects.oncommand = function(id,event){
 	initForm.list_projects.clear()
-	myUtil.load_project_pack_configs(is_in_aardio)	
+	//myUtil.load_project_pack_configs(is_in_aardio)	
 }
 //加载打包配置文件
 initForm.open_pak_ini.oncommand = function(id,event){
@@ -99,6 +99,16 @@ initForm.open_pak_ini.oncommand = function(id,event){
 	var path=ini.read("path","project_path")
 	initForm.editProjPath.text=path
 }
+//构建32位
+initForm.btn_build32.oncommand = function(id,event){
+    //;然后简单将 SuperGame.love 拖到 .bat 上，即会创建 SuperGame.love.exe 以用于分发
+	var cmd="copy /b love.exe+test.love test.exe "
+}
+//构建64位
+initForm.btn_build64.oncommand = function(id,event){
+	
+}
+
 initForm.show();
 win.loopMessage();
 //废弃代码

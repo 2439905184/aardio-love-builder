@@ -90,6 +90,7 @@ mainForm.btn_love32.oncommand = function(id,event){
 	mainForm.renaDialog.text=rena_name+"设置完成，请继续点击完成进入主界面"
 	console.log(path)
 }
+//love64
 mainForm.btn_love64.oncommand = function(id,event){
 	var path=set_path()
 	mainForm.edit_love64.text=path
