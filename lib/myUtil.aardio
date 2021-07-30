@@ -1,0 +1,13 @@
+﻿namespace myUtil{
+	import fsys;
+   	set_path= function(form){
+       var path=fsys.dlg.dir(,form,"请选择目录")
+       if(path){
+       		return path
+       }
+    	}
+}
+
+/**intellisense(myUtil)  set_path()测试
+end intellisense**/
+

@@ -1,36 +1,34 @@
 import win.ui;
-import win.ui.atom;
 import win.inputBox;
-import zlib;
 import console;
 import fsys.dlg;
 import fsys.dlg.dir;
 import fsys.ini;
-import zlib.zip;
 import process.popen;
+io.open()
+import myUtil;
 var in_aardio=true
 /*DSG{{*/
 initForm = win.form(text="love2d打包器";right=959;bottom=591)
 initForm.add(
-button={cls="button";text="打包32位exe";left=562;top=11;right=702;bottom=53;z=1};
-button10={cls="button";text="选择路径";left=391;top=14;right=452;bottom=42;z=8};
-button3={cls="button";text="打包64位exe";left=561;top=58;right=701;bottom=100;z=2};
-button4={cls="button";text="关于";left=487;top=219;right=618;bottom=257;z=3};
-button5={cls="button";text="保存打包配置";left=222;top=472;right=325;bottom=508;z=4};
-button6={cls="button";text="打包love";left=564;top=107;right=704;bottom=149;z=6};
-editProjPath={cls="edit";text="请输入工程目录(main.lua)所在目录";left=178;top=17;right=386;bottom=41;edge=1;multiline=1;z=5};
-edit_build_love_path={cls="edit";text="love文件导出路径";left=557;top=537;right=765;bottom=561;edge=1;hide=1;multiline=1;z=9};
-edit_exe_path={cls="edit";text="打包exe文件路径";left=564;top=162;right=768;bottom=186;edge=1;hide=1;multiline=1;z=10};
-list_projects={cls="listbox";left=36;top=209;right=224;bottom=456;edge=1;items={};vscroll=1;z=11};
-open_pak_ini={cls="button";text="打开打包配置";left=227;top=413;right=330;bottom=449;z=7};
-sel_ini={cls="static";text="选中了:";left=231;top=377;right=326;bottom=405;transparent=1;z=13};
-static={cls="static";text="love文件的导出路径在软件Game目录";left=173;top=59;right=407;bottom=84;transparent=1;z=14};
-static2={cls="static";text="exe文件的导出路径在软件Game目录";left=172;top=89;right=406;bottom=114;transparent=1;z=15};
-sync_local_pack_projects={cls="button";text="同步本地目录";left=40;top=462;right=186;bottom=511;z=12}
+btn_about={cls="button";text="关于";left=559;top=320;right=690;bottom=358;z=3};
+btn_pack_love={cls="button";text="打包love";left=576;top=140;right=716;bottom=182;z=6};
+btn_save_pack_config={cls="button";text="保存打包配置";left=149;top=457;right=229;bottom=492;z=4};
+btn_select_project_path={cls="button";text="选择路径";left=492;top=145;right=553;bottom=173;z=8};
+button={cls="button";text="打包32位exe";left=431;top=239;right=571;bottom=281;z=1};
+button3={cls="button";text="打包64位exe";left=595;top=237;right=735;bottom=279;z=2};
+editProjPath={cls="edit";text="请输入工程目录(main.lua)所在目录";left=278;top=150;right=486;bottom=174;edge=1;multiline=1;z=5};
+list_projects={cls="listbox";left=36;top=209;right=224;bottom=456;edge=1;items={};vscroll=1;z=9};
+open_pak_ini={cls="button";text="加载打包配置";left=226;top=424;right=319;bottom=463;z=7};
+sel_ini={cls="static";text="选中了:";left=231;top=377;right=326;bottom=405;transparent=1;z=11};
+static={cls="static";text="love文件的导出路径在软件Game目录";left=59;top=55;right=466;bottom=88;color=5724159;font=LOGFONT(h=-24);notify=1;transparent=1;z=12};
+static2={cls="static";text="exe文件的导出路径在软件Game目录";left=59;top=86;right=458;bottom=120;color=5724159;font=LOGFONT(h=-24);transparent=1;z=13};
+static3={cls="static";text="导出说明";left=19;top=5;right=199;bottom=50;border=1;color=255;font=LOGFONT(h=-29);transparent=1;z=14};
+static4={cls="static";text="注意，你需要先打包.love然后才能打包.exe";left=280;top=197;right=671;bottom=225;color=255;font=LOGFONT(h=-20);transparent=1;z=15};
+sync_local_pack_projects={cls="button";text="同步本地目录";left=60;top=457;right=142;bottom=488;z=10}
 )
 /*}}*/
 
-var project_path
 var build_love_path
 var love32_path
 //检测并载入打包配置文件
@@ -55,17 +53,11 @@ else {
 
 }
 //load_pack_inis()
-
-initForm.button4.oncommand = function(id,event){
-	win.msgbox("作者128hh qq:2439905184,编程语言aardio,使用的开源软件:7z,love2d")
-}/*
-//64 exe
-initForm.button3.oncommand = function(id,event){
-	 // win.msgbox("aaa")
-
+initForm.btn_about.oncommand = function(id,event){
+	win.msgbox("作者128hh qq:2439905184,编程语言aardio,使用的开源软件:7z,love2d  开源地址:https://gitee.com/h128/aardio-love-builder  欢迎关注我的github:https://github.com/2439905184")
 }
-//打包love 
-initForm.button6.oncommand = function(id,event){
+//打包.love 
+initForm.btn_pack_love.oncommand = function(id,event){
     if(in_aardio)
 	  {//7z a archive2.zip .\subdir\*
 	  	//调用7z添加压缩包 忽略根目录 .\目录* G:\aaa\* proj 
@@ -96,83 +88,38 @@ initForm.button6.oncommand = function(id,event){
 	  	}
 	  }
 }
-//project path
-initForm.button10.oncommand = function(id,event){
-	project_path = fsys.dlg.dir(,initForm,'请选择目录')
-	if(project_path){
-		initForm.editProjPath.text=project_path
-		//console.varDump(project_path)
-	}
+//设置工程目录
+initForm.btn_select_project_path.oncommand = function(id,event){
+ 	var path=myUtil.set_path(initForm)
+ 	initForm.editProjPath.text=path
 }
-//获取构建love文件路径
-initForm.button11.oncommand = function(id,event){
-	build_love_path = fsys.dlg.dir(,initForm,'请选择目录')
-	if(build_love_path){
-		initForm.edit_build_love_path.text=build_love_path
-	}
-}
-
-//保存配置文件 重写
-/*
-mainForm.button5.oncommand = function(id,event){
-	inputbox = win.inputBox(mainForm)
+//保存配置文件 
+initForm.btn_save_pack_config.oncommand = function(id,event){
+	inputbox = win.inputBox(initForm)
 	inputbox.text = "输入框标题"
 	inputbox.info.text = "请在下面输入此配置文件名称(不带后缀)"
 	inputbox.input.text = ""
 	name=inputbox.doModal()
 	if(name){
 		win.msgbox("保存好了")
-		var is_exist=io.exist("config.ini")
+		var is_exist=io.exist("/projects/"+name+".ini")
 		if(is_exist){
-			//win.msgbox("存在配置文件")
 			var ini=fsys.ini("/projects/"+name+".ini")
-			ini.write("path","project_path",mainForm.editProjPath.text)
-			ini.write("path","love_build_path",mainForm.edit_build_love_path.text)
-			ini.write("path","exe_build_path",mainForm.edit_exe_path.text)
-			
+			ini.write("path","project_path",initForm.editProjPath.text)			
+			}
 		}
-		else {
-		 	win.msgbox("配置文件不存在，创建文件")
-			f=io.open("/config.ini","w+")
-			var ini=fsys.ini("config.ini")
-			ini.write("love2d.exe","32",mainForm.edit_love32.text)
-			ini.write("love2d.exe","64",mainForm.edit_love64.text)
-		}
-		}
-	else{
-    	win.msgbox("拒绝保存")
 }
-}*/
-//重构用的代码
-set_path=function(control){
-	var path = fsys.dlg.dir(,mainForm,'请选择目录')
-	if(path){
-		control.text=path
-	}
-}/*
-mainForm.sync_local_pack_projects.oncommand = function(id,event){
-	mainForm.list_projects.clear()
+//同步本地目录
+initForm.sync_local_pack_projects.oncommand = function(id,event){
+	initForm.list_projects.clear()
 	load_pack_inis()	
-}*/
-//打开ini配置文件
-/*
-mainForm.open_pak_ini.oncommand = function(id,event){
-	var ini=fsys.ini("/projects/"+mainForm.list_projects.selText+".ini")
-	project_path=ini.read("path","project_path")
-	build_love_path= ini.read("path","love_build_path")
-	exe_path=ini.read("path","exe_build_path")
-	
-	mainForm.editProjPath.text=project_path
-	mainForm.edit_build_love_path.text=build_love_path
-	mainForm.edit_exe_path.text=exe_path
 }
-//选中了item
-mainForm.list_projects.oncommand = function(id,event){
-    if( event == 0x1 ){
-		var sel_name=mainForm.list_projects.selText
-		mainForm.sel_ini.text="选中了:"+sel_name
-	}
-}*/
+//加载打包配置文件
+initForm.open_pak_ini.oncommand = function(id,event){
+	var ini=fsys.ini("/projects/"+initForm.list_projects.selText+".ini")
+	var path=ini.read("path","project_path")
+	initForm.editProjPath.text=path
+}
 initForm.show();
 win.loopMessage();
 //废弃代码
