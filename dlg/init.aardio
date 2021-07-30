@@ -10,24 +10,28 @@ io.open()
 /*DSG{{*/
 initForm = win.form(text="love2d打包器";right=959;bottom=591)
 initForm.add(
-btn_about={cls="button";text="关于";left=578;top=360;right=709;bottom=398;z=3};
-btn_build32={cls="button";text="打包32位exe";left=431;top=239;right=571;bottom=281;z=1};
-btn_build64={cls="button";text="打包64位exe";left=590;top=239;right=730;bottom=281;z=2};
-btn_pack_love={cls="button";text="打包love";left=576;top=140;right=716;bottom=182;z=6};
+btn_about={cls="button";text="关于";left=28;top=148;right=159;bottom=186;z=3};
+btn_build32={cls="button";text="打包32位exe";left=548;top=103;right=664;bottom=137;z=1};
+btn_build64={cls="button";text="打包64位exe";left=677;top=107;right=778;bottom=134;z=2};
+btn_pack_love={cls="button";text="打包love";left=429;top=105;right=534;bottom=137;z=6};
 btn_save_pack_config={cls="button";text="保存打包配置";left=149;top=457;right=229;bottom=492;z=4};
-btn_select_project_path={cls="button";text="选择路径";left=492;top=145;right=553;bottom=173;z=8};
-editProjPath={cls="edit";text="请输入工程目录(main.lua)所在目录";left=278;top=150;right=486;bottom=174;edge=1;multiline=1;z=5};
+btn_select_project_path={cls="button";text="选择路径";left=674;top=11;right=735;bottom=39;z=8};
+edit={cls="edit";text="请输入游戏名称";left=437;top=50;right=645;bottom=74;edge=1;multiline=1;z=16};
+editProjPath={cls="edit";text="请输入工程目录(main.lua)所在目录";left=435;top=23;right=643;bottom=47;edge=1;multiline=1;z=5};
 list_projects={cls="listbox";left=36;top=209;right=224;bottom=456;edge=1;items={};vscroll=1;z=9};
 open_pak_ini={cls="button";text="加载打包配置";left=226;top=424;right=319;bottom=463;z=7};
 sel_ini={cls="static";text="选中了:";left=231;top=377;right=326;bottom=405;transparent=1;z=11};
-static={cls="static";text="love文件的导出路径在软件Game目录";left=59;top=55;right=466;bottom=88;color=5724159;font=LOGFONT(h=-24);notify=1;transparent=1;z=12};
-static2={cls="static";text="exe文件的导出路径在软件Game目录";left=59;top=86;right=458;bottom=120;color=5724159;font=LOGFONT(h=-24);transparent=1;z=13};
+static={cls="static";text="love文件的导出路径在软件Game目录";left=24;top=54;right=431;bottom=87;color=5724159;font=LOGFONT(h=-24);notify=1;transparent=1;z=12};
+static2={cls="static";text="exe文件的导出路径在软件Game目录";left=24;top=80;right=423;bottom=114;color=5724159;font=LOGFONT(h=-24);transparent=1;z=13};
 static3={cls="static";text="导出说明";left=19;top=5;right=199;bottom=50;border=1;color=255;font=LOGFONT(h=-29);transparent=1;z=14};
-static4={cls="static";text="注意，你需要先打包.love然后才能打包.exe";left=280;top=197;right=671;bottom=225;color=255;font=LOGFONT(h=-20);transparent=1;z=15};
+static4={cls="static";text="注意，你需要先打包.love然后才能打包.exe";left=25;top=112;right=416;bottom=140;color=255;font=LOGFONT(h=-20);transparent=1;z=15};
 sync_local_pack_projects={cls="button";text="同步本地目录";left=48;top=461;right=130;bottom=492;z=10}
 )
 /*}}*/
 
+//love.exe路径
+var love32_path
+var love64_path
 var is_in_aardio=myUtil.is_in_aardio()
 //加载配置文件 设置列表数据
 function set_list_data()
@@ -41,6 +45,17 @@ function set_list_data()
 	}
 }
 set_list_data()
+if(is_in_aardio){
+	var ini=fsys.ini("/tmp/config.ini")
+	love32_path=ini.read("love.exe","32")
+	love64_path=ini.read("love.exe","64")
+}
+else {
+	var ini=fsys.ini("/config.ini")
+	love32_path=ini.read("love.exe","32")
+	love64_path=ini.read("love.exe","64")
+}
+
 initForm.btn_about.oncommand = function(id,event){
 	win.msgbox("作者128hh qq:2439905184,编程语言aardio,使用的开源软件:7z,love2d  开源地址:https://gitee.com/h128/aardio-love-builder  欢迎关注我的github:https://github.com/2439905184")
 }
@@ -128,7 +143,11 @@ initForm.open_pak_ini.oncommand = function(id,event){
 //构建32位
 initForm.btn_build32.oncommand = function(id,event){
     //;然后简单将 SuperGame.love 拖到 .bat 上，即会创建 SuperGame.love.exe 以用于分发
-	var cmd="copy /b love.exe+test.love test.exe "
+    //测试 
+    var path=io.fullpath("/dist/love.exe")
+    console.debug(path)
+	var cmd="copy /b love.exe+C:\Users\11111\Desktop\aardio\project\love2d打包器\dist\Game\test.love test.exe"
+	execute(cmd)
 }
 //构建64位
 initForm.btn_build64.oncommand = function(id,event){

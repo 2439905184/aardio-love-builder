@@ -7,6 +7,7 @@ import fsys.ini;
 io.open()
 import process.popen;
 import bass.channel;
+import myUtil;
 /*DSG{{*/
 mainForm = win.form(text="love2d打包器-设置向导";right=959;bottom=591)
 mainForm.add(
@@ -28,22 +29,28 @@ static4={cls="static";text="请输入love.exe路径(64位)";left=87;top=255;righ
 var love32_path
 var love64_path
 var rena_name="rena酱:"
-//导出exe需要设置为false
+//测试
 var test_play=true
-//检测配置文件 love2d引擎位置 运行向导
 var bgm=bass.channel.open("/res/bgm.mp3")
-if(test_play){
-	bgm.play()
+var is_in_aardio=myUtil.is_in_aardio()
+if(is_in_aardio){
+	if(test_play)
+	{
+		bgm.play()
+     	mainForm.progress.stepIt()
+	}
+	if(io.exist("/tmp/config.ini"))
+	{
+		var ini=fsys.ini("config.ini")
+		var love32=ini.read("love2d.exe","32")
+		var love64=ini.read("love2d.exe","64")
+	}
+	else 
+	{
+		console.log("不存在config.ini")
+	}
 }
-if(io.exist("config.ini")){
-	var ini=fsys.ini("config.ini")
-	var love32=ini.read("love2d.exe","32")
-	var love64=ini.read("love2d.exe","64")
-}
-else {
-    bgm.play()	
-    mainForm.progress.stepIt()
-}
+//检测配置文件 love2d引擎位置 运行向导
 set_path=function(){
 	var path = fsys.dlg.dir(,mainForm,'请选择目录')
 	if(path){
@@ -90,8 +97,28 @@ mainForm.btn_love32.oncommand = function(id,event){
 	mainForm.btn_next.text="完成设置"
 	mainForm.progress.stepIt()
 	mainForm.renaDialog.text=rena_name+"设置完成，请继续点击完成进入主界面"
+
 	console.log(path)
 }
+//保存配置文件
+save_config=function()
+{
+    var ini
+	if(is_in_aardio)
+	{
+		ini=fsys.ini("tmp/config.ini")
+		ini.write("love.exe","32",mainForm.edit_love32.text)
+		ini.write("love.exe","64",mainForm.edit_love64.text)
+	}	
+	else 
+	{
+		ini.fsys.ini("/config.ini")
+		ini.write("love.exe","32",mainForm.edit_love32.text)
+		ini.write("love.exe","64",mainForm.edit_love64.text)
+	}
+	
+}
+
 //love64
 mainForm.btn_love64.oncommand = function(id,event){
 	var path=set_path()
