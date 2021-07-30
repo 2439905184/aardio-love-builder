@@ -6,5 +6,5 @@
 	注意：只导出32位 因为64位系统兼容32位。如有64位需要，请使用图形化工具。
 	
 	loveBuilder build 同时构建.love和.exe文件
-	loveBuilder build --exe 只构建exe
+	loveBuilder build --exe 只构建exe（32位)
 	loveBuilder build --love 只构建love

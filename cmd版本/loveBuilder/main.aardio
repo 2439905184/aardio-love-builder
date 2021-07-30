@@ -1,17 +1,29 @@
 import console;
 import io;
 import fsys.file;
+import fsys.ini;
 //测试代码 导出需要注释
-_CMDLINE="help"
-
-
+_CMDLINE="build --exe"
 arg=_CMDLINE
 console.setTitle("loveBuilder");
-
 if(arg=="init")
 {
     var love=console.getText("请输入love.exe(32位路径)",)
-	console.log()	
+	var ini=fsys.ini("/config.ini")
+	ini.write("love.exe","32",ini)
+}
+if(arg=="build")
+{
+	var cmd="copy /b love.exe+test.love test.exe"
+	execute(cmd)	
+}
+if(arg="build --exe")
+{
+	var cmd="copy /b love.exe+test.love test.exe"
+	execute(cmd)	
+}
+if(arg=="build --love")
+{	
 }
 if(arg=="help")
 {
