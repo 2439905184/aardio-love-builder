@@ -1,0 +1,20 @@
+﻿namespace export
+{
+    import fsys.ini;
+    import fsys;
+    import console;
+	//复制依赖库
+   	copy_libs=function()
+   	{
+   		var path=fsys.ini("tmp/config.ini").read("love.exe","32")
+   		fsys.enum(path, "*.dll*", 
+   				function(dir,filename,fullpath,findData)
+   				{
+					if(filename)
+					{ 
+           				console.log("发现dll:",fullpath )
+           				fsys.copy(fullpath,"/dist/Game")
+           			}
+				})	
+   	}
+}

@@ -1,0 +1,1 @@
+copy /b C:\Users\11111\Downloads\Engine\love\love-11.3-win32\love.exe+C:\Users\11111\Desktop\aardio\project\love2d_packer\dist\Game\test.love test.exe

@@ -116,7 +116,6 @@ save_config=function()
 		ini.write("love.exe","32",mainForm.edit_love32.text)
 		ini.write("love.exe","64",mainForm.edit_love64.text)
 	}
-	
 }
 
 //love64

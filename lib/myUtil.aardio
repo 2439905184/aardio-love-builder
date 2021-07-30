@@ -1,8 +1,10 @@
-﻿namespace myUtil{
+﻿namespace myUtil
+{
 	import fsys;
 	import io;
 	import console;
 	import table;
+	import string;
    	set_path= function(form)
    	{
        var path=fsys.dlg.dir(,form,"请选择目录")
@@ -37,7 +39,7 @@
    	{
    		table.clear(files)
    	}
-   			
+
 }
 
 /**intellisense(myUtil)  set_path()测试

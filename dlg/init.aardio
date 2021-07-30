@@ -6,12 +6,13 @@ import fsys.dlg.dir;
 import fsys.ini;
 import process.popen;
 import myUtil;
+import export;
 io.open()
 /*DSG{{*/
 initForm = win.form(text="love2d打包器";right=959;bottom=591)
 initForm.add(
 btn_about={cls="button";text="关于";left=28;top=148;right=159;bottom=186;z=3};
-btn_build32={cls="button";text="打包32位exe";left=548;top=103;right=664;bottom=137;z=1};
+btn_build32={cls="button";text="打包32位exe";left=549;top=103;right=665;bottom=137;z=1};
 btn_build64={cls="button";text="打包64位exe";left=677;top=107;right=778;bottom=134;z=2};
 btn_pack_love={cls="button";text="打包love";left=429;top=105;right=534;bottom=137;z=6};
 btn_save_pack_config={cls="button";text="保存打包配置";left=149;top=457;right=229;bottom=492;z=4};
@@ -147,7 +148,13 @@ initForm.btn_build32.oncommand = function(id,event)
     if(is_in_aardio)
     {
         var ini=fsys.ini("/tmp/config.ini")
-    	var loveEngine=ini.read("love.exe","32")
+    	var loveEngine=ini.read("love.exe","32")+"\love.exe"
+    	var love=io.fullpath("/dist/test.love")
+    	var game_path=io.fullpath("/dist/Game")
+    	cmd="copy /b "+loveEngine+"+"+love+" "+"test.exe"
+     	console.log(cmd)
+     	execute("cd "+game_path+"&"+cmd)
+     	export.copy_libs()
         //测试代码
      /*var loveEngine=io.fullpath("/dist/love.exe")
      var love=io.fullpath("/dist/test.love")
@@ -156,18 +163,10 @@ initForm.btn_build32.oncommand = function(id,event)
      console.log(cmd)
      execute(cmd)*/
     }
-    else 
-    {
-    	cmd="copy /b "
-    	console.log(cmd)
-    	execute(cmd)
-    }
-    
     /*var path=io.fullpath("/dist/love.exe")
 	var cmd="copy /b C:\Users\11111\Desktop\work\love\love.exe+C:\Users\11111\Desktop\work\love\test.love C:\Users\11111\Desktop\work\love\test.exe"
 	var err=execute(cmd)*/
 	win.msgbox("打包完成")
-	console.debug(err)
 }
 //构建64位
 initForm.btn_build64.oncommand = function(id,event){
