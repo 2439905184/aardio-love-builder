@@ -3,10 +3,10 @@
     import fsys.ini;
     import fsys;
     import console;
-	//复制依赖库
-   	copy_libs=function()
+	//复制依赖库 bit:32或64位
+   	copy_libs=function(bit)
    	{
-   		var path=fsys.ini("tmp/config.ini").read("love.exe","32")
+   		var path=fsys.ini("tmp/config.ini").read("love.exe",bit)
    		fsys.enum(path, "*.dll*", 
    				function(dir,filename,fullpath,findData)
    				{
