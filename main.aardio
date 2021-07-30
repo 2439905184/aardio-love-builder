@@ -31,8 +31,9 @@ var love64_path
 var rena_name="rena酱:"
 //测试
 var test_play=true
-var bgm=bass.channel.open("/res/bgm.mp3")
+var bgm=bass.channel.open("\res\bgm.mp3")
 var is_in_aardio=myUtil.is_in_aardio()
+console.debug("是否在编译环境",is_in_aardio)
 if(is_in_aardio){
 	if(test_play)
 	{
@@ -47,9 +48,16 @@ if(is_in_aardio){
 	}
 	else 
 	{
+		bgm.play()
 		console.log("不存在config.ini")
 	}
 }
+else 
+{
+	bgm.play()
+	console.log("不存在config.ini")
+}
+
 //检测配置文件 love2d引擎位置 运行向导
 set_path=function(){
 	var path = fsys.dlg.dir(,mainForm,'请选择目录')

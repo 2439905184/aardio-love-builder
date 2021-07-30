@@ -116,8 +116,6 @@ initForm.btn_save_pack_config.oncommand = function(id,event){
 			var ini=fsys.ini("/projects/"+name+".ini")
 			ini.write("path","project_path",initForm.editProjPath.text)
 		}
-		
-		
 	}
 }
 //同步本地目录
