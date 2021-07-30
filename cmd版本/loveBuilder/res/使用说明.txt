@@ -1,0 +1,10 @@
+命令说明:
+	loveBuilder help 帮助
+	
+	loveBuilder init 
+	初始化config.ini全局配置文件 用于打包exe。
+	注意：只导出32位 因为64位系统兼容32位。如有64位需要，请使用图形化工具。
+	
+	loveBuilder build 同时构建.love和.exe文件
+	loveBuilder build --exe 只构建exe
+	loveBuilder build --love 只构建love
