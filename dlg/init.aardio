@@ -149,23 +149,25 @@ initForm.btn_build32.oncommand = function(id,event)
     {
         var ini=fsys.ini("/tmp/config.ini")
     	var loveEngine=ini.read("love.exe","32")+"\love.exe"
-    	var love=io.fullpath("/dist/test.love")
+    	var love=io.fullpath("/dist/Game/test.love")
     	var game_path=io.fullpath("/dist/Game")
     	cmd="copy /b "+loveEngine+"+"+love+" "+"test.exe"
      	console.log(cmd)
      	execute("cd "+game_path+"&"+cmd)
      	export.copy_libs()
-        //测试代码
-     /*var loveEngine=io.fullpath("/dist/love.exe")
-     var love=io.fullpath("/dist/test.love")
-     var bin_path=io.fullpath("/dist/test.exe")
-     cmd="copy /b "+loveEngine+"+"+love+" "+bin_path
-     console.log(cmd)
-     execute(cmd)*/
     }
-    /*var path=io.fullpath("/dist/love.exe")
-	var cmd="copy /b C:\Users\11111\Desktop\work\love\love.exe+C:\Users\11111\Desktop\work\love\test.love C:\Users\11111\Desktop\work\love\test.exe"
-	var err=execute(cmd)*/
+    else 
+    {
+   		var ini=fsys.ini("/config.ini")
+    	var loveEngine=ini.read("love.exe","32")+"\love.exe"
+    	var love=io.fullpath("/Game/test.love")
+    	var game_path=io.fullpath("/Game")
+    	cmd="copy /b "+loveEngine+"+"+love+" "+"test.exe"
+     	console.log(cmd)
+     	execute("cd "+game_path+"&"+cmd)
+     	export.copy_libs()
+    }
+    
 	win.msgbox("打包完成")
 }
 //构建64位
