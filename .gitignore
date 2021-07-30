@@ -3,6 +3,7 @@
 test.zip
 dist/dist.zip
 dist/Game/test.love
+dist/test.love
 config.ini
 projects
 cmd版本/loveBuilder/dist/

@@ -149,7 +149,7 @@ initForm.btn_build32.oncommand = function(id,event)
      var loveEngine=io.fullpath("/dist/love.exe")
      var love=io.fullpath("/dist/test.love")
      var bin_path=io.fullpath("/dist/test.exe")
-     cmd="copy /b "+love+"+"+love+bin_path
+     cmd="copy /b "+loveEngine+"+"+love+" "+bin_path
      console.log(cmd)
      execute(cmd)
     }
