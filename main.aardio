@@ -97,7 +97,7 @@ mainForm.btn_love32.oncommand = function(id,event){
 	mainForm.btn_next.text="完成设置"
 	mainForm.progress.stepIt()
 	mainForm.renaDialog.text=rena_name+"设置完成，请继续点击完成进入主界面"
-
+	save_config()
 	console.log(path)
 }
 //保存配置文件
