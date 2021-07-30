@@ -5,13 +5,12 @@ import fsys.dlg;
 import fsys.dlg.dir;
 import fsys.ini;
 import process.popen;
-io.open()
 import myUtil;
-var in_aardio=true
+io.open()
 /*DSG{{*/
 initForm = win.form(text="love2d打包器";right=959;bottom=591)
 initForm.add(
-btn_about={cls="button";text="关于";left=559;top=320;right=690;bottom=358;z=3};
+btn_about={cls="button";text="关于";left=578;top=360;right=709;bottom=398;z=3};
 btn_pack_love={cls="button";text="打包love";left=576;top=140;right=716;bottom=182;z=6};
 btn_save_pack_config={cls="button";text="保存打包配置";left=149;top=457;right=229;bottom=492;z=4};
 btn_select_project_path={cls="button";text="选择路径";left=492;top=145;right=553;bottom=173;z=8};
@@ -25,33 +24,13 @@ static={cls="static";text="love文件的导出路径在软件Game目录";left=59
 static2={cls="static";text="exe文件的导出路径在软件Game目录";left=59;top=86;right=458;bottom=120;color=5724159;font=LOGFONT(h=-24);transparent=1;z=13};
 static3={cls="static";text="导出说明";left=19;top=5;right=199;bottom=50;border=1;color=255;font=LOGFONT(h=-29);transparent=1;z=14};
 static4={cls="static";text="注意，你需要先打包.love然后才能打包.exe";left=280;top=197;right=671;bottom=225;color=255;font=LOGFONT(h=-20);transparent=1;z=15};
-sync_local_pack_projects={cls="button";text="同步本地目录";left=60;top=457;right=142;bottom=488;z=10}
+sync_local_pack_projects={cls="button";text="同步本地目录";left=48;top=461;right=130;bottom=492;z=10}
 )
 /*}}*/
 
 var build_love_path
 var love32_path
-//检测并载入打包配置文件
-load_pack_inis=function(){
-	if(io.exist("/projects"))
-{ //指定要遍历的目录  //指定查询文件名,支持windows掩码
-    fsys.enum("/projects", "*.*",
-			function(dir,filename,fullpath,findData){ //指定触发器
-				if(filename){ 
-           			console.log("发现文件：",filename )
-           			var name=string.split(filename,".")[1]
-           			initForm.list_projects.add(name)
-				}
-			} 
-		  ); 
-}
-else {
-	console.log("没有保存的打包配置文件")
-	console.log("创建工程目录")
-	fsys.createDir("/projects")
-}
-
-}
+var is_in_aardio=myUtil.is_in_aardio()
 //load_pack_inis()
 initForm.btn_about.oncommand = function(id,event){
 	win.msgbox("作者128hh qq:2439905184,编程语言aardio,使用的开源软件:7z,love2d  开源地址:https://gitee.com/h128/aardio-love-builder  欢迎关注我的github:https://github.com/2439905184")
@@ -112,7 +91,7 @@ initForm.btn_save_pack_config.oncommand = function(id,event){
 //同步本地目录
 initForm.sync_local_pack_projects.oncommand = function(id,event){
 	initForm.list_projects.clear()
-	load_pack_inis()	
+	myUtil.load_project_pack_configs(is_in_aardio)	
 }
 //加载打包配置文件
 initForm.open_pak_ini.oncommand = function(id,event){

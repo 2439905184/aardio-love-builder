@@ -1,11 +1,26 @@
 ﻿namespace myUtil{
 	import fsys;
+	import io;
    	set_path= function(form){
        var path=fsys.dlg.dir(,form,"请选择目录")
        if(path){
        		return path
        }
     	}
+    //是否在开发环境
+   	is_in_aardio=function(){
+   		var state=io.exist("/dist")
+   		return state
+   	}
+   	//加载游戏工程配置
+   	load_project_pack_configs=function(in_aardio)
+   	{
+   		if(in_aardio)
+   		{
+   		
+   		}
+   	}
+   			
 }
 
 /**intellisense(myUtil)  set_path()测试
