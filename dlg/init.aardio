@@ -141,13 +141,28 @@ initForm.open_pak_ini.oncommand = function(id,event){
 
 }
 //构建32位
-initForm.btn_build32.oncommand = function(id,event){
-    //;然后简单将 SuperGame.love 拖到 .bat 上，即会创建 SuperGame.love.exe 以用于分发
-    //测试 
-    var path=io.fullpath("/dist/love.exe")
-   // console.debug(path)
+initForm.btn_build32.oncommand = function(id,event)
+{ 
+    var cmd
+    if(is_in_aardio)
+    {
+     var loveEngine=io.fullpath("/dist/love.exe")
+     var love=io.fullpath("/dist/test.love")
+     var bin_path=io.fullpath("/dist/test.exe")
+     cmd="copy /b "+love+"+"+love+bin_path
+     console.log(cmd)
+     execute(cmd)
+    }
+    else 
+    {
+    	cmd="copy /b "
+    	console.log(cmd)
+    	execute(cmd)
+    }
+    
+    /*var path=io.fullpath("/dist/love.exe")
 	var cmd="copy /b C:\Users\11111\Desktop\work\love\love.exe+C:\Users\11111\Desktop\work\love\test.love C:\Users\11111\Desktop\work\love\test.exe"
-	var err=execute(cmd)
+	var err=execute(cmd)*/
 	win.msgbox("打包完成")
 	console.debug(err)
 }
