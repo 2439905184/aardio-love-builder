@@ -1,5 +1,4 @@
 import win.ui;
-import win.ui.atom;
 import win.inputBox;
 import console;
 import fsys.dlg;
@@ -74,6 +73,9 @@ mainForm.btn_next.oncommand = function(id,event){
 		var love32=ini.write("love2d.exe","32",mainForm.edit_love32.text)
 		var love64=ini.write("love2d.exe","64",mainForm.edit_love64.text)
 		win.msgbox("已生成config.ini,目录:/config.ini")
+		//打开下一个窗口
+		bgm.stop()
+		bgm.free()
     	var frmChild = mainForm.loadForm("\dlg\init.aardio");
 		frmChild.show();
     }

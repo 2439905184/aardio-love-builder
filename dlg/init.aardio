@@ -36,7 +36,7 @@ function set_list_data()
 	console.dump(table_ini)
 	for(i=1;table.count(table_ini);1)
 	{
-    	console.debug(table_ini[i])
+    	//console.debug(table_ini[i])
     	initForm.list_projects.add(table_ini[i])
 	}
 }
@@ -46,8 +46,7 @@ initForm.btn_about.oncommand = function(id,event){
 }
 //打包.love 
 initForm.btn_pack_love.oncommand = function(id,event){
-    if(in_aardio)
-	  {//7z a archive2.zip .\subdir\*
+	  //7z a archive2.zip .\subdir\*
 	  	//调用7z添加压缩包 忽略根目录 .\目录* G:\aaa\* proj 
 	  	var ccmad="cd 7z &7za a test.zip "+initForm.editProjPath.text+"\*"
 	  	win.msgbox("命令>"+ccmad)
@@ -74,7 +73,7 @@ initForm.btn_pack_love.oncommand = function(id,event){
 	  	{
 	  		win.msgbox("打包失败")
 	  	}
-	  }
+	  
 }
 //设置工程目录
 initForm.btn_select_project_path.oncommand = function(id,event){
@@ -88,14 +87,22 @@ initForm.btn_save_pack_config.oncommand = function(id,event){
 	inputbox.info.text = "请在下面输入此配置文件名称(不带后缀)"
 	inputbox.input.text = ""
 	name=inputbox.doModal()
-	if(name){
+	if(name)
+	{
 		win.msgbox("保存好了")
-		var is_exist=io.exist("/projects/"+name+".ini")
-		if(is_exist){
-			var ini=fsys.ini("/projects/"+name+".ini")
+		if(is_in_aardio)
+		{
+			var ini=fsys.ini("/tmp/projects/"+name+".ini")
 			ini.write("path","project_path",initForm.editProjPath.text)			
-			}
 		}
+		else 
+		{
+			var ini=fsys.ini("/projects/"+name+".ini")
+			ini.write("path","project_path",initForm.editProjPath.text)
+		}
+		
+		
+	}
 }
 //同步本地目录
 initForm.sync_local_pack_projects.oncommand = function(id,event){
@@ -105,9 +112,18 @@ initForm.sync_local_pack_projects.oncommand = function(id,event){
 }
 //加载打包配置文件
 initForm.open_pak_ini.oncommand = function(id,event){
-	var ini=fsys.ini("/projects/"+initForm.list_projects.selText+".ini")
-	var path=ini.read("path","project_path")
-	initForm.editProjPath.text=path
+    if(is_in_aardio){
+    	var ini=fsys.ini("/tmp/projects/"+initForm.list_projects.selText)
+		var path=ini.read("path","project_path")
+		initForm.editProjPath.text=path
+    }
+    else {
+    var ini=fsys.ini("/projects/"+initForm.list_projects.selText+".ini")
+		var path=ini.read("path","project_path")
+		initForm.editProjPath.text=path
+    }
+    
+
 }
 //构建32位
 initForm.btn_build32.oncommand = function(id,event){
@@ -118,7 +134,6 @@ initForm.btn_build32.oncommand = function(id,event){
 initForm.btn_build64.oncommand = function(id,event){
 	
 }
-
 initForm.show();
 win.loopMessage();
 //废弃代码

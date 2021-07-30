@@ -20,7 +20,7 @@
    	{// files表	
    		if(in_aardio)
    		{
-   		fsys.enum(  "/dist/projects", "*.*", 
+   		fsys.enum(  "/tmp/projects", "*.*", 
    				function(dir,filename,fullpath,findData)
    				{
 				if(filename)
