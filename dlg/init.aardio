@@ -145,9 +145,11 @@ initForm.btn_build32.oncommand = function(id,event){
     //;然后简单将 SuperGame.love 拖到 .bat 上，即会创建 SuperGame.love.exe 以用于分发
     //测试 
     var path=io.fullpath("/dist/love.exe")
-    console.debug(path)
-	var cmd="copy /b love.exe+C:\Users\11111\Desktop\aardio\project\love2d打包器\dist\Game\test.love test.exe"
-	execute(cmd)
+   // console.debug(path)
+	var cmd="copy /b C:\Users\11111\Desktop\work\love\love.exe+C:\Users\11111\Desktop\work\love\test.love C:\Users\11111\Desktop\work\love\test.exe"
+	var err=execute(cmd)
+	win.msgbox("打包完成")
+	console.debug(err)
 }
 //构建64位
 initForm.btn_build64.oncommand = function(id,event){
