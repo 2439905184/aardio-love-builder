@@ -27,7 +27,7 @@
 				if(filename)
 				{ 
            			console.log("发现文件:",filename )
-           			table.insert(myUtil.files,filename)
+           			table.insert(files,filename)
            		}
 				})
    		}

@@ -3,7 +3,6 @@
 	<file name="main.aardio" path="main.aardio" comment="main.aardio"/>
 	<folder name="资源文件" path="res" embed="true" local="false" ignored="false">
 		<file name="bgm.mp3" path="res\bgm.mp3" comment="res\bgm.mp3"/>
-		<file name="game.ico" path="res\game.ico" comment="res\game.ico"/>
 		<file name="love.ico" path="res\love.ico" comment="res\love.ico"/>
 		<file name="rena.png" path="res\rena.png" comment="res\rena.png"/>
 	</folder>
@@ -20,6 +19,5 @@
 			<file name="tabs3.aardio" path="dlg\main\tabs3.aardio" comment="dlg\main\tabs3.aardio"/>
 		</folder>
 		<file name="init.aardio" path="dlg\init.aardio" comment="dlg\editor.aardio"/>
-		<file name="select_config.aardio" path="dlg\select_config.aardio" comment="dlg\select_config.aardio"/>
 	</folder>
 </project>
