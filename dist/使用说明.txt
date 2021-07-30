@@ -4,3 +4,11 @@ exe文件打包制作中
 config.ini是全局配置
 用来配置love2d引擎目录的，需要手动输入
 用于后续exe的打包
+
+命令行版本说明：
+把此文件夹添加到环境变量
+命令说明:
+	loveBuilder help 帮助
+	loveBuilder build 同时构建.love和.exe文件
+	loveBuilder build --exe 只构建exe
+	loveBuilder build --love 只构建love
